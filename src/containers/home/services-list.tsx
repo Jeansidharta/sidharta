@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { Description, Subtitle, Title, PageRoot } from './components';
+import { Description, Title, PageRoot } from './components';
 
 const LinksContainer = styled.div`
 	display: flex;
