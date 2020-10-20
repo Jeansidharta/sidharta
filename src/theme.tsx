@@ -118,14 +118,14 @@ const EMPTY_COLOR = '';
 const theme: DefaultTheme = {
 	colors: {
 		primary: {
-			main: EMPTY_COLOR,
+			main: '#7d0633',
 			dark: EMPTY_COLOR,
 			darker: EMPTY_COLOR,
 			light: EMPTY_COLOR,
 			lighter: EMPTY_COLOR,
 		},
 		secondary: {
-			main: EMPTY_COLOR,
+			main: '#31112c',
 			dark: EMPTY_COLOR,
 			darker: EMPTY_COLOR,
 			light: EMPTY_COLOR,
@@ -141,9 +141,9 @@ const theme: DefaultTheme = {
 		gray: {
 			light: '#dddddd',
 			lighter: '#eeeeee',
-			main: EMPTY_COLOR,
-			dark: EMPTY_COLOR,
-			darker: EMPTY_COLOR,
+			main: '#808080',
+			dark: '#404040',
+			darker: '#202020',
 		},
 
 		// Material UI's default success colors.
