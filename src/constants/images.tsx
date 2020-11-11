@@ -55,10 +55,14 @@ const BaseImage = React.forwardRef<HTMLPictureElement, BaseImageProps>(({
 });
 
 const Images = {
-	/** Here's an image import example. Just copy and paste it with the correct import path. */
-	main: styled(BaseImage).attrs(({ alt }) => ({
-		src: ImageURLs.logo,
-		alt: alt || 'My Company Logo',
+	blankFile: styled(BaseImage).attrs(({ alt }) => ({
+		src: ImageURLs.blankFile,
+		alt: alt || 'Blank file',
+	}))``,
+
+	wallpaper: styled(BaseImage).attrs(({ alt }) => ({
+		src: ImageURLs.wallpaper,
+		alt: alt || 'Blank file',
 	}))``,
 }
 
