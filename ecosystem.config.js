@@ -4,13 +4,10 @@
 module.exports = {
 	apps: [{
 		name: 'My home page',
-		script: 'serve',
+		script: 'npm',
+		args: ['run', 'serve'],
 		watch: false,
 		cwd: require.main.id,
 		time: true,
-		env: {
-			PM2_SERVE_PATH: './out',
-			PM2_SERVE_PORT: 3042
-		}
 	}],
 };
