@@ -38,10 +38,7 @@ const TaskBarContainer = styled.div`
 `;
 
 const iconsContent = [
-	{ iconSrc: undefined, text: 'Batata' },
-	{ iconSrc: undefined, text: 'Tomate' },
-	{ iconSrc: undefined, text: 'Cebola' },
-	{ iconSrc: undefined, text: 'Chocolate' },
+	{ iconSrc: undefined, text: 'Certificates', url: '/markdown/certs' },
 ];
 
 function Desktop () {
@@ -95,7 +92,7 @@ function Desktop () {
 						name={iconContent.text}
 						onDragEnd={handleIconDragEnd}
 						size={{ x: 80, y: 100 }}
-						url="/desktop"
+						url={iconContent.url}
 						onAppOpen={handleIconOpen}
 						key={index}
 					/>
