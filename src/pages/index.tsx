@@ -1,3 +1,3 @@
-import Home from '../containers/home';
+import Index from '../containers/index';
 
-export default Home;
+export default Index;
