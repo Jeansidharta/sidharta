@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MouseDragEvent, useMouseDrag } from '../../libs/useMouseDrag';
+import { MouseDragEvent, useMouseDrag } from '../../../libs/useMouseDrag';
 
 const Root = styled.div`
 	position: absolute;
@@ -23,11 +23,13 @@ const Header = styled.div`
 const CloseButton = styled.button`
 `;
 
-const InnerWindow = styled.iframe`
+const InnerWindow = styled.div`
 	background-color: white;
 	width: 100%;
 	height: 100%;
 	user-select: none;
+	border: 1px solid black;
+	overflow: hidden;
 `;
 
 const RESIZE_INTERFACE_SIZE = 10;
@@ -60,8 +62,7 @@ const ResizeSide = styled.div<{ side: 'top' | 'left' | 'right' | 'bottom' }>`
 	 )}
 `;
 
-type WindowProps = React.PropsWithoutRef<{
-	url: string,
+type WindowProps = React.PropsWithChildren<{
 	onClose?: () => void,
 }>;
 
@@ -70,7 +71,7 @@ type WindowComponent = React.FunctionComponent<WindowProps>;
 type Coords = { x: number, y: number };
 
 const Window: WindowComponent = ({
-	url,
+	children,
 	onClose,
 }) => {
 	const sizeRef = React.useRef<Coords>({ x: 400, y: 300 });
@@ -188,7 +189,7 @@ const Window: WindowComponent = ({
 			<Header ref={headerRef}>
 				<CloseButton onClick={onClose}>X</CloseButton>
 			</Header>
-			<InnerWindow src={url} />
+			<InnerWindow>{children}</InnerWindow>
 			<ResizeButton ref={TopRightResizerRef} corner="top-right" />
 			<ResizeButton ref={TopLeftResizerRef} corner="top-left" />
 			<ResizeButton ref={BottomLeftResizerRef} corner="bottom-left" />

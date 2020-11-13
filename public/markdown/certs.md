@@ -1,20 +1,3 @@
-import React from 'react';
-import styled from 'styled-components';
-import ReactMarkdown from 'react-markdown';
-
-const Root = styled.div`
-	overflow: auto;
-	display: flex;
-	justify-content: center;
-`;
-
-const MarkdownContainer = styled.div`
-	padding: 1rem;
-	max-width: 600px;
-	height: 100%;
-`;
-
-const markdown = `
 # SSL Certificates
 
 If this is your first time using my web services, and would like to get
@@ -67,21 +50,3 @@ Also, I really wanted to learn how a Certificate Authority works, how to create 
 and how to automate the steps to generate a SSL certificate. It took me a few
 hours, and a lot of documentation reading, but I eventualy managed to do it,
 and am pretty proud of it :)
-`;
-
-type CertsProps = React.PropsWithoutRef<{
-}>;
-
-type CertsComponent = React.FunctionComponent<CertsProps>;
-
-const Certs: CertsComponent = ({  }) => {
-	return (
-		<Root>
-			<MarkdownContainer>
-				<ReactMarkdown>{markdown}</ReactMarkdown>
-			</MarkdownContainer>
-		</Root>
-	);
-}
-
-export default Certs;

@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import Images from '../../constants/images';
+import Images from '../../../constants/images';
+import { AnyProgramArgs } from '../../../models/program';
 
 const Root = styled.button<{ width: number, height: number }>`
 	width: ${props => props.width}px;
@@ -28,7 +29,6 @@ const Name = styled.p`
 
 const VisualsContainer = styled.div`
 	padding: 4px;
-
 	${Root}:focus & {
 		border: 1px solid white;
 		box-shadow: 0px 0px 0px 1px rgba(0, 0, 0, 1);
@@ -46,19 +46,15 @@ const IconImage = styled(Images.blankFile)`
 `;
 
 type IconProps = React.PropsWithoutRef<{
-	iconSrc?: string,
-	name: string,
+	programArgs: AnyProgramArgs,
 	size: { x: number, y: number, },
-	url: string,
-	onAppOpen?: (url: string) => void,
+	onAppOpen?: (programArgs: AnyProgramArgs) => void,
 }> & React.ComponentProps<'button'>;
 
 type IconComponent = React.FunctionComponent<IconProps>;
 
 const Icon: IconComponent = ({
-	iconSrc = '/images/blank-file.svg',
-	name,
-	url,
+	programArgs,
 	ref,
 	size,
 	onAppOpen,
@@ -76,7 +72,7 @@ const Icon: IconComponent = ({
 	}, []);
 
 	function handleDoubleClick () {
-		if (onAppOpen) onAppOpen(url);
+		if (onAppOpen) onAppOpen(programArgs);
 	}
 
 	return (
@@ -91,7 +87,7 @@ const Icon: IconComponent = ({
 				<ImageContainer>
 					<IconImage />
 				</ImageContainer>
-				<Name>{name}</Name>
+				<Name>{programArgs.title}</Name>
 			</VisualsContainer>
 		</Root>
 	);

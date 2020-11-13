@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import HeroText from './hero-text';
 import Security from './security';
-import Certificates from './certificates';
 import Contact from './contact';
 import ServicesList from './services-list';
 

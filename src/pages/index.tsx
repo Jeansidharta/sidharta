@@ -1,3 +1,3 @@
-import Index from '../containers/index';
+import Desktop from '../containers/desktop';
 
-export default Index;
+export default Desktop;

@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import IconsContainer from '../../components/reusable/icons-container';
 
 import Images from '../../constants/images';
-import Icon from './icon';
 import TaskBar from './task-bar';
-import Window from './window';
+import { FolderWindow, IFrameWindow } from '../../components/reusable/window';
+import { AnyProgramArgs, isProgramFolder, isProgramIFrame, isProgramMarkdownFile } from '../../models/program';
+import MarkdownFileWindow from '../../components/reusable/window/markdown-file';
 
 const Root = styled.div`
 	width: 100%;
@@ -12,19 +14,6 @@ const Root = styled.div`
 	display: flex;
 	flex-direction: column;
 	position: relative;
-`;
-
-const IconsContainer = styled.div`
-	width: 100%;
-	height: 100%;
-	display: grid;
-	position: relative;
-	grid-auto-flow: column;
-	grid-auto-columns: max-content;
-	grid-template-rows: repeat(auto-fill, 100px);
-	grid-template-columns: repeat(100, 80px);
-	justify-items: center;
-	align-items: center;
 `;
 
 const Background = styled(Images.wallpaper).attrs(() => ({ fit: 'cover' }))`
@@ -37,67 +26,56 @@ const TaskBarContainer = styled.div`
 	position: relative;
 `;
 
-const iconsContent = [
-	{ iconSrc: undefined, text: 'Certificates', url: '/markdown/certs' },
+const iconsContent: AnyProgramArgs[] = [
+	{ title: 'Why certs?', programType: 'markdown-file', url: '/markdown/certs.md' },
+	{ title: 'Certificates', programType: 'folder', childIcons: [{ title: 'batata', programType: 'iframe', url: '/desktop' }] },
 ];
 
 function Desktop () {
-	const iconsContainerRef = React.useRef<HTMLDivElement | null>(null);
-	const [windows, setWindows] = React.useState<string[]>([]);
+	const [openPrograms, setOpenPrograms] = React.useState<AnyProgramArgs[]>([]);
 
-	function handleIconDragEnd (event: React.MouseEvent<HTMLButtonElement>) {
-		if (!iconsContainerRef.current) throw new Error('Reference not set');
-
-		const { clientX: x, clientY: y, currentTarget } = event;
-
-		const { width: targetWidth, height: targetHeight } = (
-			currentTarget.getBoundingClientRect()
-		);
-
-		const dragColumn = Math.floor(x / targetWidth);
-		const dragRow = Math.floor(y / targetHeight);
-
-		console.log(dragRow, dragColumn);
-		currentTarget.style.gridColumnStart = (dragColumn + 1).toString();
-		currentTarget.style.gridRowStart = (dragRow + 1).toString();
+	function handleProgramClose (programArgs: AnyProgramArgs) {
+		setOpenPrograms(openPrograms => openPrograms.filter(args => args !== programArgs));
 	}
 
 	function renderWindows () {
-		function handleWindowClose (window: string) {
-			setWindows(windows.filter(w => w !== window));
-		}
-
 		return (
-			windows.map(window => (
-				<Window
-					key="window"
-					url={window}
-					onClose={() => handleWindowClose(window)}
-				/>
-			))
+			openPrograms.map((program, index) => {
+				if (isProgramFolder(program)) {
+					return <FolderWindow
+						key={index}
+						iconChildren={program.childIcons}
+						onIconOpen={handleProgramOpen}
+						onClose={() => handleProgramClose(program)}
+					/>;
+				} else if (isProgramIFrame(program)) {
+					return <IFrameWindow
+						key={index}
+						onClose={() => handleProgramClose(program)}
+						url={program.url}
+					/>;
+				} else if (isProgramMarkdownFile(program)) {
+					return <MarkdownFileWindow
+						key={index}
+						markdownURL={program.url}
+						onClose={() => handleProgramClose(program)}
+					/>;
+				} else throw new Error('Invalid program type');
+			})
 		);
 	}
 
-	function handleIconOpen (newUrl: string) {
-		setWindows([...windows, newUrl]);
+	function handleProgramOpen (programArgs: AnyProgramArgs) {
+		setOpenPrograms([...openPrograms, programArgs]);
 	}
 
 	return (
 		<Root>
 			<Background src="/images/wallpaper.jpg" />
-			<IconsContainer ref={iconsContainerRef}>
-				{iconsContent.map((iconContent, index) => (
-					<Icon
-						iconSrc={iconContent.iconSrc}
-						name={iconContent.text}
-						onDragEnd={handleIconDragEnd}
-						size={{ x: 80, y: 100 }}
-						url={iconContent.url}
-						onAppOpen={handleIconOpen}
-						key={index}
-					/>
-				))}
-			</IconsContainer>
+			<IconsContainer
+				programsArgs={iconsContent}
+				onIconOpen={handleProgramOpen}
+			/>
 			{renderWindows()}
 			<TaskBarContainer>
 				<TaskBar />
