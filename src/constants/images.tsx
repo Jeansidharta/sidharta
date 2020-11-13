@@ -64,6 +64,11 @@ const Images = {
 		src: ImageURLs.wallpaper,
 		alt: alt || 'Blank file',
 	}))``,
+
+	folder: styled(BaseImage).attrs(({ alt }) => ({
+		src: ImageURLs.folder,
+		alt: alt || 'folder',
+	}))``,
 }
 
 export default Images;

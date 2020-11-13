@@ -1,44 +1,90 @@
-import Head from 'next/head'
+import React from 'react';
 import styled from 'styled-components';
+import IconsContainer from '../../components/reusable/icons-container';
 
-import HeroText from './hero-text';
-import Security from './security';
-import Contact from './contact';
-import ServicesList from './services-list';
+import Images from '../../constants/images';
+import TaskBar from './task-bar';
+import { FolderWindow, IFrameWindow } from '../../components/reusable/window';
+import { AnyProgramArgs, isProgramFolder, isProgramIFrame, isProgramMarkdownFile } from '../../models/program';
+import MarkdownFileWindow from '../../components/reusable/window/markdown-file';
 
-const Main = styled.div`
+const Root = styled.div`
 	width: 100%;
 	height: 100%;
-	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	position: relative;
 `;
 
-/**
-* Visit https://schema.org/docs/full.html for a list of all types to put here
-*/
-// const JSONLD = `{
-// 	"@context": "http://schema.org/",
-// 	"@type": "Thing",
-// 	"name": "your site thing",
-// 	"image": "${ImageURLs.logoPng}"
-// }`;
+const Background = styled(Images.wallpaper).attrs(() => ({ fit: 'cover' }))`
+	position: fixed;
+	left: 0;
+	top: 0;
+`;
 
-export default function Home() {
+const TaskBarContainer = styled.div`
+	position: relative;
+`;
+
+const iconsContent: AnyProgramArgs[] = [
+	{ title: 'Contact me!', programType: 'markdown-file', url: '/markdown/contact-me.md' },
+	{ title: 'Security concerns', programType: 'markdown-file', url: '/markdown/security.md' },
+	{ title: 'servicoes', programType: 'markdown-file', url: '/markdown/services-list.md' },
+	{ title: 'Why certs?', programType: 'markdown-file', url: '/markdown/certs.md' },
+	{ title: 'Certificates', programType: 'folder', childIcons: [{ title: 'batata', programType: 'iframe', url: '/desktop' }] },
+];
+
+function Desktop () {
+	const [openPrograms, setOpenPrograms] = React.useState<AnyProgramArgs[]>([]);
+
+	function handleProgramClose (programArgs: AnyProgramArgs) {
+		setOpenPrograms(openPrograms => openPrograms.filter(args => args !== programArgs));
+	}
+
+	function renderWindows () {
+		return (
+			openPrograms.map((program, index) => {
+				if (isProgramFolder(program)) {
+					return <FolderWindow
+						key={index}
+						iconChildren={program.childIcons}
+						onIconOpen={handleProgramOpen}
+						onClose={() => handleProgramClose(program)}
+					/>;
+				} else if (isProgramIFrame(program)) {
+					return <IFrameWindow
+						key={index}
+						onClose={() => handleProgramClose(program)}
+						url={program.url}
+					/>;
+				} else if (isProgramMarkdownFile(program)) {
+					return <MarkdownFileWindow
+						key={index}
+						markdownURL={program.url}
+						onClose={() => handleProgramClose(program)}
+					/>;
+				} else throw new Error('Invalid program type');
+			})
+		);
+	}
+
+	function handleProgramOpen (programArgs: AnyProgramArgs) {
+		setOpenPrograms([...openPrograms, programArgs]);
+	}
+
 	return (
-		<>
-			<Head>
-				<title>Sidharta's home page</title>
-				<link rel="canonical" href="https://sidharta.xyz"/>
-
-				{/* TODO - add json-ld when ready */}
-				{/* <script type='application/ld+json'>{JSONLD}</script> */}
-			</Head>
-			<Main>
-				<HeroText />
-				<Certificates />
-				<ServicesList />
-				<Security />
-				<Contact />
-			</Main>
-		</>
-	)
+		<Root>
+			<Background src="/images/wallpaper.jpg" />
+			<IconsContainer
+				programsArgs={iconsContent}
+				onIconOpen={handleProgramOpen}
+			/>
+			{renderWindows()}
+			<TaskBarContainer>
+				<TaskBar />
+			</TaskBarContainer>
+		</Root>
+	);
 }
+
+export default Desktop;
