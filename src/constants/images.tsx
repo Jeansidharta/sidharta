@@ -69,6 +69,11 @@ const Images = {
 		src: ImageURLs.folder,
 		alt: alt || 'folder',
 	}))``,
+
+	web: styled(BaseImage).attrs(({ alt }) => ({
+		src: ImageURLs.web,
+		alt: alt || 'web',
+	}))``,
 }
 
 export default Images;

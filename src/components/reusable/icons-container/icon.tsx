@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Images from '../../../constants/images';
 import { AnyProgramArgs } from '../../../models/program';
 
@@ -38,7 +38,7 @@ const VisualsContainer = styled.div`
 const ImageContainer = styled.div`
 `;
 
-const IconImage = styled(Images.blankFile)`
+const iconImageStyles = css`
 	user-select: none;
 	user-drag: none;
 	height: 46px;
@@ -75,6 +75,16 @@ const Icon: IconComponent = ({
 		if (onAppOpen) onAppOpen(programArgs);
 	}
 
+	let iconImageElem: React.ReactNode;
+
+	if (programArgs.programType === 'folder') {
+		iconImageElem = <Images.folder css={iconImageStyles} />;
+	} else if (programArgs.programType === 'iframe') {
+		iconImageElem = <Images.web css={iconImageStyles} />;
+	} else {
+		iconImageElem = <Images.blankFile css={iconImageStyles} />;
+	}
+
 	return (
 		<Root
 			onDoubleClick={handleDoubleClick}
@@ -85,7 +95,7 @@ const Icon: IconComponent = ({
 		>
 			<VisualsContainer draggable>
 				<ImageContainer>
-					<IconImage />
+					{ iconImageElem }
 				</ImageContainer>
 				<Name>{programArgs.title}</Name>
 			</VisualsContainer>

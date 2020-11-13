@@ -31,6 +31,7 @@ const iconsContent: AnyProgramArgs[] = [
 	{ title: 'Security concerns', programType: 'markdown-file', url: '/markdown/security.md' },
 	{ title: 'servicoes', programType: 'markdown-file', url: '/markdown/services-list.md' },
 	{ title: 'Why certs?', programType: 'markdown-file', url: '/markdown/certs.md' },
+	{ title: 'iframe', programType: 'iframe', url: '/markdown/certs.md' },
 	{ title: 'Certificates', programType: 'folder', childIcons: [{ title: 'batata', programType: 'iframe', url: '/desktop' }] },
 ];
 
