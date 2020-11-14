@@ -23,7 +23,11 @@ const Name = styled.p`
 	text-align: center;
 	overflow-wrap: break-word;
 	color: white;
-	text-shadow: 0px 0px 3px black;
+	text-shadow:
+		-1px -1px 0 rgba(0, 0, 0, 0.5),
+		 1px -1px 0 rgba(0, 0, 0, 0.5),
+		-1px  1px 0 rgba(0, 0, 0, 0.5),
+		 1px  1px 0 rgba(0, 0, 0, 0.5);
 	width: 100%;
 `;
 
