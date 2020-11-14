@@ -82,6 +82,8 @@ const Icon: IconComponent = ({
 			const anchor = document.createElement('a');
 			anchor.setAttribute('download', 'true');
 			anchor.setAttribute('href', programArgs.url);
+			anchor.setAttribute('title', programArgs.title);
+			anchor.innerText = programArgs.title;
 			anchor.click();
 		} else if (onAppOpen) {
 			onAppOpen(programArgs);
