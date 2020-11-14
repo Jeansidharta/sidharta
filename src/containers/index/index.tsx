@@ -29,10 +29,12 @@ const TaskBarContainer = styled.div`
 const iconsContent: AnyProgramArgs[] = [
 	{ title: 'Contact me!', programType: 'markdown-file', url: '/markdown/contact-me.md' },
 	{ title: 'Security concerns', programType: 'markdown-file', url: '/markdown/security.md' },
-	{ title: 'servicoes', programType: 'markdown-file', url: '/markdown/services-list.md' },
 	{ title: 'Why certs?', programType: 'markdown-file', url: '/markdown/certs.md' },
 	{ title: 'iframe', programType: 'iframe', url: '/markdown/certs.md' },
-	{ title: 'Certificates', programType: 'folder', childIcons: [{ title: 'batata', programType: 'iframe', url: '/desktop' }] },
+	{ title: 'Services', programType: 'folder', childIcons: [
+		{ title: 'DNS manager', programType: 'iframe', url: 'https://dns-manager.sidharta.xyz/admin/' },
+		{ title: 'README', programType: 'markdown-file', url: '/markdown/services/readme.md'},
+	]},
 ];
 
 function Desktop () {
