@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import Images from '../../../constants/images';
-import { AnyProgramArgs } from '../../../models/program';
+import { AnyProgramArgs, isProgramDownload } from '../../../models/program';
 
 const Root = styled.button<{ width: number, height: number }>`
 	width: ${props => props.width}px;
@@ -78,7 +78,14 @@ const Icon: IconComponent = ({
 	}, []);
 
 	function handleDoubleClick () {
-		if (onAppOpen) onAppOpen(programArgs);
+		if (isProgramDownload(programArgs)) {
+			const anchor = document.createElement('a');
+			anchor.setAttribute('download', 'true');
+			anchor.setAttribute('href', programArgs.url);
+			anchor.click();
+		} else if (onAppOpen) {
+			onAppOpen(programArgs);
+		}
 	}
 
 	let iconImageElem: React.ReactNode;
@@ -87,6 +94,8 @@ const Icon: IconComponent = ({
 		iconImageElem = <Images.folder css={iconImageStyles} />;
 	} else if (programArgs.programType === 'iframe') {
 		iconImageElem = <Images.web css={iconImageStyles} />;
+	} else if (programArgs.programType === 'download') {
+		iconImageElem = <Images.download css={iconImageStyles} />;
 	} else {
 		iconImageElem = <Images.blankFile css={iconImageStyles} />;
 	}

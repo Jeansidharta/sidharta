@@ -79,6 +79,11 @@ const Images = {
 		src: ImageURLs.backArrow,
 		alt: alt || 'Back Arrow',
 	}))``,
+
+	download: styled(BaseImage).attrs(({ alt }) => ({
+		src: ImageURLs.download,
+		alt: alt || 'Download',
+	}))``,
 }
 
 export default Images;

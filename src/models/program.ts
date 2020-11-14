@@ -1,4 +1,4 @@
-type ProgramArgsPrograms = 'markdown-file' | 'folder' | 'iframe';
+type ProgramArgsPrograms = 'markdown-file' | 'folder' | 'iframe' | 'download';
 
 interface ProgramArgs {
 	title: string,
@@ -20,6 +20,11 @@ export interface IFrameProgramArgs extends ProgramArgs {
 	url: string,
 }
 
+export interface DownloadProgramArgs extends ProgramArgs {
+	programType: 'download',
+	url: string,
+}
+
 export function isProgramFolder (program: AnyProgramArgs): program is FolderProgramArgs {
 	return program.programType === 'folder';
 }
@@ -32,4 +37,8 @@ export function isProgramMarkdownFile (program: AnyProgramArgs): program is Mark
 	return program.programType === 'markdown-file';
 }
 
-export type AnyProgramArgs = FolderProgramArgs | MarkdownFileProgramArgs | IFrameProgramArgs;
+export function isProgramDownload (program: AnyProgramArgs): program is DownloadProgramArgs {
+	return program.programType === 'download';
+}
+
+export type AnyProgramArgs = FolderProgramArgs | MarkdownFileProgramArgs | IFrameProgramArgs | DownloadProgramArgs;

@@ -27,17 +27,20 @@ const TaskBarContainer = styled.div`
 `;
 
 const iconsContent: AnyProgramArgs[] = [
-	{ title: 'Contact me!', programType: 'markdown-file', url: '/markdown/contact-me.md' },
-	{ title: 'Security concerns', programType: 'markdown-file', url: '/markdown/security.md' },
-	{ title: 'Why certs?', programType: 'markdown-file', url: '/markdown/certs.md' },
-	{ title: 'iframe', programType: 'iframe', url: '/markdown/certs.md' },
+	{ title: 'Certificates', programType: 'folder', childIcons: [
+		{ title: 'Root', programType: 'download', url: '/certs/sidhartaCA.crt' },
+		{ title: 'Intermediate', programType: 'download', url: '/certs/web-services.crt' },
+		{ title: 'README', programType: 'markdown-file', url: '/markdown/certs.md' }
+	]},
 	{ title: 'Services', programType: 'folder', childIcons: [
 		{ title: 'DNS manager', programType: 'iframe', url: 'https://dns-manager.sidharta.xyz/admin/' },
 		{ title: 'README', programType: 'markdown-file', url: '/markdown/services/readme.md'},
 		{ title: 'teste', programType: 'folder', childIcons: [
-			{ title: 'batata', programType: 'iframe', url: '/' }
+			{ title: 'batata', programType: 'iframe', url: '/' },
 		] },
 	]},
+	{ title: 'Contact me!', programType: 'markdown-file', url: '/markdown/contact-me.md' },
+	{ title: 'Security concerns', programType: 'markdown-file', url: '/markdown/security.md' },
 ];
 
 function Desktop () {
