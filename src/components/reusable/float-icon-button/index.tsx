@@ -5,7 +5,7 @@ const Root = styled.button`
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	padding: 8px;
+	padding: 4px;
 	border-radius: 100%;
 	cursor: pointer;
 	box-shadow: ${props => props.theme.shadows.button.small.normal};

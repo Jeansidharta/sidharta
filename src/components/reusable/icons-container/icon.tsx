@@ -68,7 +68,9 @@ const Icon: IconComponent = ({
 
 	React.useEffect(() => {
 		const elem = rootRef.current!;
-		const { height, width, top, left } = elem.getBoundingClientRect();
+		const left = elem.offsetLeft;
+		const top = elem.offsetTop;
+		const { height, width } = elem.getBoundingClientRect();
 		const col = Math.floor(left / width) + 1;
 		const row = Math.floor(top / height) + 1;
 		elem.style.gridColumnStart = col.toString();

@@ -34,6 +34,9 @@ const iconsContent: AnyProgramArgs[] = [
 	{ title: 'Services', programType: 'folder', childIcons: [
 		{ title: 'DNS manager', programType: 'iframe', url: 'https://dns-manager.sidharta.xyz/admin/' },
 		{ title: 'README', programType: 'markdown-file', url: '/markdown/services/readme.md'},
+		{ title: 'teste', programType: 'folder', childIcons: [
+			{ title: 'batata', programType: 'iframe', url: '/' }
+		] },
 	]},
 ];
 
