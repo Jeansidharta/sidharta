@@ -1,4 +1,5 @@
 import React from 'react';
+import Head from 'next/head';
 import styled from 'styled-components';
 import IconsContainer from '../../components/reusable/icons-container';
 
@@ -83,6 +84,10 @@ function Desktop () {
 
 	return (
 		<Root>
+			<Head>
+				<title>Sidharta's desktop</title>
+			</Head>
+
 			<Background src="/images/wallpaper.jpg" />
 			<IconsContainer
 				programsArgs={iconsContent}
