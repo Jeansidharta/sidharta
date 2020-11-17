@@ -55,6 +55,11 @@ type IconProps = React.PropsWithoutRef<{
 	onAppOpen?: (programArgs: AnyProgramArgs) => void,
 }> & React.ComponentProps<'button'>;
 
+const ImagesFolder = styled(Images.folder).attrs(() => ({ css: iconImageStyles }))``;
+const ImagesWeb = styled(Images.web).attrs(() => ({ css: iconImageStyles }))``;
+const ImagesDownload = styled(Images.download).attrs(() => ({ css: iconImageStyles }))``;
+const ImagesBlankFile = styled(Images.blankFile).attrs(() => ({ css: iconImageStyles }))``;
+
 type IconComponent = React.FunctionComponent<IconProps>;
 
 const Icon: IconComponent = ({
@@ -90,16 +95,16 @@ const Icon: IconComponent = ({
 		}
 	}
 
-	let iconImageElem: React.ReactNode;
+	let IconImageElem: React.FunctionComponent;
 
 	if (programArgs.programType === 'folder') {
-		iconImageElem = <Images.folder css={iconImageStyles} />;
+		IconImageElem = ImagesFolder;
 	} else if (programArgs.programType === 'iframe') {
-		iconImageElem = <Images.web css={iconImageStyles} />;
+		IconImageElem = ImagesWeb;
 	} else if (programArgs.programType === 'download') {
-		iconImageElem = <Images.download css={iconImageStyles} />;
+		IconImageElem = ImagesDownload;
 	} else {
-		iconImageElem = <Images.blankFile css={iconImageStyles} />;
+		IconImageElem = ImagesBlankFile;
 	}
 
 	return (
@@ -112,7 +117,7 @@ const Icon: IconComponent = ({
 		>
 			<VisualsContainer draggable>
 				<ImageContainer>
-					{ iconImageElem }
+					<IconImageElem />
 				</ImageContainer>
 				<Name>{programArgs.title}</Name>
 			</VisualsContainer>
